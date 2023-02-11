@@ -26,7 +26,7 @@
 		"lint:format": "prettier . --check",
 		"format": "prettier . --write",
 		"prepare": "husky install",
-		"prepublishOnly": "run-p -l lint:* test && pnpm build"
+		"prepublishOnly": "pnpm lint && pnpm build"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.4.2",
