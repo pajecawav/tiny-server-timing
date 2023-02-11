@@ -4,11 +4,6 @@ export interface ServerTimingOptions {
 	allowOrigin?: string;
 }
 
-export interface ServerTimingHeaders {
-	"Server-Timing": string;
-	"Timing-Allow-Origin"?: string;
-}
-
 interface FinishedTiming {
 	name: string;
 	durationMs: number;
@@ -79,7 +74,7 @@ export class ServerTiming {
 		return result;
 	}
 
-	getHeaders(): ServerTimingHeaders {
+	getHeaders(): Record<string, string> {
 		if (this.autoEnd) {
 			for (const name of this.pending.keys()) {
 				this.end(name);
@@ -98,7 +93,7 @@ export class ServerTiming {
 			entries.push(values.join(";"));
 		}
 
-		const headers: ServerTimingHeaders = {
+		const headers: Record<string, string> = {
 			"Server-Timing": entries.join(", "),
 		};
 
