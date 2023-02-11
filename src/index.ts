@@ -65,6 +65,20 @@ export class ServerTiming {
 		this.finished.push({ name, durationMs, description });
 	}
 
+	time<T>(name: string, fn: () => T, description?: string): T {
+		this.start(name, description);
+		const result = fn();
+		this.end(name);
+		return result;
+	}
+
+	async timeAsync<T>(name: string, fn: () => Promise<T>, description?: string): Promise<T> {
+		this.start(name, description);
+		const result = await fn();
+		this.end(name);
+		return result;
+	}
+
 	getHeaders(): ServerTimingHeaders {
 		if (this.autoEnd) {
 			for (const name of this.pending.keys()) {

@@ -77,4 +77,27 @@ describe("ServerTiming", () => {
 		const value = timing.getHeaders()["Server-Timing"];
 		expect(value).toMatch(/^foobar;dur=\d+$/);
 	});
+
+	it("'time' automatically tracks execution time of a function", () => {
+		const timing = new ServerTiming({ precision: 0 });
+
+		const result = timing.time("foo", () => 123);
+		expect(result).toBe(123);
+
+		const value = timing.getHeaders()["Server-Timing"];
+		expect(value).toContain("foo");
+	});
+
+	it("'timeAsync' automatically tracks execution time of an async function", async () => {
+		const timing = new ServerTiming({ precision: 0 });
+
+		const result = await timing.timeAsync(
+			"bar",
+			() => new Promise<string>(r => setTimeout(r, 10, "456"))
+		);
+		expect(result).toBe("456");
+
+		const value = timing.getHeaders()["Server-Timing"];
+		expect(value).toContain("bar");
+	});
 });
