@@ -1,5 +1,7 @@
 # tiny-server-timing [![npm](https://img.shields.io/npm/v/tiny-server-timing)](https://www.npmjs.com/package/tiny-server-timing) [![build](https://github.com/pajecawav/tiny-server-timing/actions/workflows/ci.yml/badge.svg)](https://github.com/pajecawav/tiny-server-timing/actions/workflows/ci.yml)
 
+A simple library for measuring execution time of your functions and building [Server-Timing](https://developer.mozilla.org/docs/Web/HTTP/Headers/Server-Timing) HTTP header.
+
 ## Install
 
 ```sh
