@@ -31,12 +31,12 @@
 		"prepublishOnly": "run-p -l lint:* test && pnpm build"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^17.6.3",
-		"@commitlint/config-conventional": "^17.6.3",
-		"@typescript-eslint/eslint-plugin": "^5.59.7",
-		"@typescript-eslint/parser": "^5.59.7",
-		"@vitest/coverage-c8": "^0.31.1",
-		"@vitest/ui": "^0.31.1",
+		"@commitlint/cli": "^17.6.5",
+		"@commitlint/config-conventional": "^17.6.5",
+		"@typescript-eslint/eslint-plugin": "^5.59.8",
+		"@typescript-eslint/parser": "^5.59.8",
+		"@vitest/coverage-c8": "^0.31.4",
+		"@vitest/ui": "^0.31.4",
 		"eslint": "^8.41.0",
 		"husky": "^8.0.3",
 		"lint-staged": "^13.2.2",
@@ -44,6 +44,6 @@
 		"prettier": "^2.8.8",
 		"tsup": "^6.7.0",
 		"typescript": "^5.0.4",
-		"vitest": "^0.31.1"
+		"vitest": "^0.31.4"
 	}
 }
