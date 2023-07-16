@@ -93,7 +93,7 @@ describe("ServerTiming", () => {
 
 		const result = await timing.timeAsync(
 			"bar",
-			() => new Promise<string>(r => setTimeout(r, 10, "456"))
+			() => new Promise<string>(r => setTimeout(r, 10, "456")),
 		);
 		expect(result).toBe("456");
 
