@@ -11,6 +11,9 @@ devDependencies:
   '@commitlint/config-conventional':
     specifier: ^17.7.0
     version: 17.7.0
+  '@pajecawav/prettier-config':
+    specifier: ^1.0.0
+    version: 1.0.0
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.7.4
     version: 6.7.4(@typescript-eslint/parser@6.7.4)(eslint@8.51.0)(typescript@5.2.2)
@@ -587,6 +590,10 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
+    dev: true
+
+  /@pajecawav/prettier-config@1.0.0:
+    resolution: {integrity: sha512-TG9anWvgxoZruEbBuE5WBLEahE4CaUnqlPiTh3HB6tt9ZPj4Zq2F6DcD8Nmr13qLti0WjtMaL9YAephHbT+nRA==}
     dev: true
 
   /@polka/url@1.0.0-next.23:
