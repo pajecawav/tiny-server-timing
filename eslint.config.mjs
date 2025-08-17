@@ -8,4 +8,9 @@ export default tseslint.config(
 	},
 	eslint.configs.recommended,
 	...tseslint.configs.recommended,
+	{
+		rules: {
+			"@typescript-eslint/explicit-member-accessibility": "error",
+		},
+	},
 );

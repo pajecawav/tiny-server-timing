@@ -6,7 +6,7 @@ export interface ServerTimingOptions {
 
 interface FinishedTiming {
 	name: string;
-	durationMs: number;
+	duration: number;
 	description?: string;
 }
 
@@ -32,17 +32,17 @@ export class ServerTiming {
 	private precision: number;
 	private allowOrigin?: string;
 
-	constructor(options: ServerTimingOptions = {}) {
+	public constructor(options: ServerTimingOptions = {}) {
 		this.autoEnd = options.autoEnd ?? false;
 		this.precision = options.precision ?? 2;
 		this.allowOrigin = options.allowOrigin;
 	}
 
-	start(name: string, description?: string) {
+	public start(name: string, description?: string) {
 		this.pending.set(name, { startedAt: now(), description });
 	}
 
-	end(name: string) {
+	public end(name: string) {
 		const endedAt = now();
 
 		const pendingTiming = this.pending.get(name);
@@ -51,47 +51,44 @@ export class ServerTiming {
 		}
 		this.pending.delete(name);
 
-		const durationMs = endedAt - pendingTiming.startedAt;
+		const duration = endedAt - pendingTiming.startedAt;
 
-		this.add(name, durationMs, pendingTiming.description);
+		this.add(name, duration, pendingTiming.description);
 	}
 
-	add(name: string, durationMs: number, description?: string) {
-		this.finished.push({ name, durationMs, description });
+	public add(name: string, duration: number, description?: string) {
+		this.finished.push({ name, duration, description });
 	}
 
-	time<T>(name: string, fn: () => T, description?: string): T {
+	public time<T>(name: string, fn: () => T, description?: string): T {
 		this.start(name, description);
 		const result = fn();
 		this.end(name);
 		return result;
 	}
 
-	async timeAsync<T>(name: string, fn: () => Promise<T>, description?: string): Promise<T> {
+	public async timeAsync<T>(
+		name: string,
+		fn: () => Promise<T>,
+		description?: string,
+	): Promise<T> {
 		this.start(name, description);
 		const result = await fn();
 		this.end(name);
 		return result;
 	}
 
-	getHeaders(): Record<string, string> {
-		if (this.autoEnd) {
-			for (const name of this.pending.keys()) {
-				this.end(name);
-			}
-		}
-
-		const entries: string[] = [];
-		for (const timing of this.finished) {
-			const dur = timing.durationMs.toFixed(this.precision);
+	public getHeaders(): Record<string, string> {
+		const entries = this.getEntries().map(timing => {
+			const dur = timing.duration.toFixed(this.precision);
 			const values = [timing.name, `dur=${dur}`];
 
 			if (timing.description) {
 				values.push(`desc="${timing.description}"`);
 			}
 
-			entries.push(values.join(";"));
-		}
+			return values.join(";");
+		});
 
 		const headers: Record<string, string> = {
 			"Server-Timing": entries.join(", "),
@@ -102,5 +99,15 @@ export class ServerTiming {
 		}
 
 		return headers;
+	}
+
+	public getEntries(): FinishedTiming[] {
+		if (this.autoEnd) {
+			for (const name of this.pending.keys()) {
+				this.end(name);
+			}
+		}
+
+		return this.finished;
 	}
 }
