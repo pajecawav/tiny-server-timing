@@ -1,6 +1,6 @@
 {
 	"name": "tiny-server-timing",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"type": "module",
 	"repository": "github:pajecawav/tiny-server-timing",
 	"bugs": "https://github.com/pajecawav/tiny-server-timing/issues",
